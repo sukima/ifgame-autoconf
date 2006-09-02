@@ -1,0 +1,95 @@
+dnl The following commands are suggested to properly configure automake and
+dnl autoconf.
+dnl 
+dnl     $ aclocal
+dnl     $ automake --add-missing
+dnl     $ autoconf
+dnl     $ ./configure
+dnl 
+dnl Using the --enable-maintainer-mode helps developers automatically run the
+dnl above when changes are made to configure.in and Makefile.am
+
+AC_INIT(shell, 0.1, bugs@myaddress.com)
+AC_CONFIG_SRCDIR([src/Makefile.am])
+AC_PREREQ(2.52)
+AM_INIT_AUTOMAKE
+AM_MAINTAINER_MODE
+AC_EXEEXT
+AC_ARG_ENABLE(hints,
+              AC_HELP_STRING([--disable-hints],
+	                     [turn off hints (default enabled)]),
+	      USE_HINTS=$enableval, USE_HINTS=yes)
+AC_ARG_ENABLE(abbrev,
+              AC_HELP_STRING([--enable-abbrev],
+	                     [turn on auto-abbreviations (slow)]),
+	      abbrev=$enableval, abbrev=no)
+AC_ARG_ENABLE(proof,
+              AC_HELP_STRING([--enable-proof-read],
+			     [enable output of proof-reading file]),
+	      proof=$enableval, proof=no)
+AC_ARG_ENABLE(infix,
+	      AC_HELP_STRING([--enable-infix],
+			     [turn on Infix debugging]),
+	      infix=$enableval, infix=no)
+
+AC_PATH_PROG(INFORM, inform$EXEEXT)
+if test "x$INFORM" = "x"; then
+    AC_MSG_ERROR([Inform compiler not in path.])
+fi
+AC_SUBST(INFORM)
+
+INFORM_SWITCHES=
+if test "x$abbrev" != "xno"; then
+    INFORM_SWITCHES="-u $INFORM_SWITCHES"
+fi
+if test "x$proof" != "xno"; then
+    INFORM_SWITCHES="-r $INFORM_SWITCHES"
+fi
+if test "x$infix" != "xno"; then
+    INFORM_SWITCHES="-X $INFORM_SWITCHES"
+fi
+AC_MSG_CHECKING([for extra inform compiler switches])
+if test "x$INFORM_SWITCHES" = "x"; then
+    AC_MSG_RESULT(none)
+else
+    AC_MSG_RESULT($INFORM_SWITCHES)
+fi
+dnl must re-examine here so the AC_MSG_RESULT will hide "-~S"
+if test "x$infix" == "xno"; then
+dnl No need for default debugging commands included.
+    INFORM_SWITCHES="-~S $INFORM_SWITCHES"
+fi
+AC_SUBST(INFORM_SWITCHES)
+
+if test "x$USE_HINTS" = "xyes"; then
+    AC_PATH_PROG(PERL, perl$EXEEXT, no)
+else
+    PERL=no
+fi
+AC_SUBST(PERL)
+AC_MSG_CHECKING([whether to disable hints])
+if test "x$PERL" = "xno"; then
+    AC_MSG_RESULT(yes)
+else
+    AC_MSG_RESULT(no)
+fi
+
+# +include_path overrides all defaults. We have to extract the defaults and
+# rebuild the include_path.
+echo "Caching include path"
+AC_CACHE_VAL(ac_cv_inform_include_path,[
+ac_cv_inform_include_path=`$INFORM -h1 | grep "Include file (in)" | sed "s/^ *Include file (in) *include_path *//"`
+])
+INFORM_INCLUDE_PATH=$ac_cv_inform_include_path
+AC_SUBST(INFORM_INCLUDE_PATH)
+
+echo "Caching module path"
+AC_CACHE_VAL(ac_cv_inform_module_path,[
+ac_cv_inform_module_path=`$INFORM -h1 | grep "Module (in & out)" | sed "s/^ *Module (in & out) *module_path *//"`
+])
+
+INFORM_MODULE_PATH=$ac_cv_inform_module_path
+AC_SUBST(INFORM_MODULE_PATH)
+
+AC_CONFIG_FILES([Makefile hints/Makefile docs/Makefile src/Makefile])
+AC_OUTPUT

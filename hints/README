@@ -1,0 +1,10 @@
+WARNING. The files in theis directory give away valuable information to the
+game. DO NOT READ if you do not wish to be spoiled. The hint files are rot13'd
+to prevent acidental viewing. However the source files slag creates are not.
+
+Developers:
+The following is an example use of the hints:
+
+    Include "shell_hints";
+    [ HintsSub; SLAG_RunMenus(); ];
+    Verb "hint" "hints" * -> Hints;

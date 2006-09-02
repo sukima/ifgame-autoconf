@@ -1,0 +1,36 @@
+! ----------------------------------------------------------------------------
+!  And when he hath the kernel eat,
+!    Who doth not fling away the Shell?  - John Donne, "Community"
+! ----------------------------------------------------------------------------
+
+constant story "SHELL";
+constant headline "^An Interactive Skeleton^
+             Copyright (c) 1994 by (your name here).^";
+
+include "Parser";
+include "VerbLib";
+
+! HINTS EXAMPLE
+! Use the following to include the compiled hints in the hints directory.
+include "shell_hints";
+! Call them using the command SLAG_RunMenus();
+
+! INCLUDE TEXT EXAMPLE
+! Use the following to include the text compiled from the docs directory.
+include "intro";
+! Call then using the command introText();
+
+object Blank_Room "Blank Room"
+  with description "An empty room.",
+   has light;
+
+[ initialise;
+    location = Blank_Room;
+    print "^^^^^Welcome to the shell...^^";
+#ifdef HAVE_introText;
+    introText();
+#endif;
+];
+
+include "Grammar";
+end;

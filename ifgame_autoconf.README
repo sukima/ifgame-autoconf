@@ -1,0 +1,34 @@
+FILES
+-----
+`E' means you need to edit this file
+`D' means this file is your documentaion and will need to be edited at some
+    point.
+`R' means you need to rename the file and edit it.
+`X' means you delete this file.
+__________________
+    ./
+E   ./configure.in
+    ./COPYING
+    ./COPYING.LIB
+    ./docs/
+D   ./docs/author.txt
+    ./docs/Makefile.am
+D   ./docs/npc.txt
+D   ./docs/puzzles.txt
+D   ./docs/README
+D   ./docs/story.txt
+    ./hints/
+    ./hints/Makefile.am
+    ./hints/README
+R   ./hints/shell_hints.slg
+    ./hints/slag
+X   ./ifgame_autoconf.README
+    ./lib/
+    ./lib/COPYING.h
+    ./lib/COPYING_tx.h
+    ./lib/scenic.h
+    ./Makefile.am
+D   ./README
+    ./src/
+E   ./src/Makefile.am
+R   ./src/shell.inf

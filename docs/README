@@ -1,0 +1,17 @@
+This directory has all the documentation for the game development. Some files
+are the text for inside the game which is imported into the game when it is
+made (using make)
+
+Developers:
+The constructed header files from the text files create a simple procedure you
+can call from inside the game. For example:
+
+using make, intro.txt will create intro.h looking somehting like the
+following:
+    ! This file is generated automatically.
+    ! Edit intro.txt to make changes.
+    Constant HAVE_introText;
+    [ introText;
+      print "TEXT TEXT^";
+    ];
+

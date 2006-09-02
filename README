@@ -1,0 +1,36 @@
+TITLE
+------------------------------------------------------------------------------
+
+    Add game intro here.
+
+Usage
+------------------------------------------------------------------------------
+
+    Usage info here.
+
+Authors & Special Thanks
+------------------------------------------------------------------------------
+
+    Devin Weaver <ktohg@tritarget.com>
+    Special Thanks to
+    * Roger Firth and Stefano Gaburri for scenic.h
+    * Patrick Boylan for the GPL library.
+    * Brian 'Beej' Hall for the SLAG hint system.
+
+Licensing
+------------------------------------------------------------------------------
+
+    This program and all source code associated with this program are covered
+    under the GNU General Public License with exceptions. See COPYING for
+    details.
+
+    The files and source code within the lib directory are covered under the
+    GNU Library General Public License with exceptions. See COPYING.LIB for
+    details.
+
+    scenic.h is not covered by either of the above licenses. Please contact
+    Roger Firth or Stefano Gaburri for details.
+
+    slag is not covered by either of the above licenses although it is public
+    domain. Please contact Brian 'Beej' Hall for details.
+
